@@ -1,0 +1,27 @@
+{
+  "name": "api-rest",
+  "version": "1.0.0",
+  "description": "API REST NODEJS",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NelsonAtle/API-REST-NODEJS.git"
+  },
+  "author": "Nelson y Catalina",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/NelsonAtle/API-REST-NODEJS/issues"
+  },
+  "homepage": "https://github.com/NelsonAtle/API-REST-NODEJS#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "mongoose": "^5.2.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.2"
+  }
+}
