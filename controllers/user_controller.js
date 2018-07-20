@@ -49,12 +49,7 @@ exports.getUser = (req, res) => {
               message: "User not found"
           });
       });
-};
-function handleError(res, errorMsg, erroCode = 422) {
-    res.status(erroCode);
-    res.json({error: errorMsg});
-};
-
+  };
 //Update a user identified by id
 exports.update = (req, res) => {
   const id = req.params.id;
