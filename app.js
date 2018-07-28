@@ -1,9 +1,10 @@
 var express = require('express');
 var app = express();
-
+var cors = require('cors');
 const database = require('./config/database.js');
 const mongoose = require('mongoose');
 let bodyParser = require('body-parser');
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 // Connecting to the database
