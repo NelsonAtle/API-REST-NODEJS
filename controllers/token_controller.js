@@ -1,21 +1,29 @@
-const Client  = require('../models/client_model.js');
-
+const Token  = require('../models/token_model.js');
+/*var jwt = require('jsonwebtoken');
 
 //Create new client and insert in the database
 exports.create = (req, res) => {
-  var client = new Client();
-  client.idRoot = req.body.idRoot;
-  client.name = req.body.name;
-  client.user = req.body.user;
-  client.pin = req.body.pin;
-  client.years   = req.body.years;
-  client.save(function(err){
+  var token = new Token();
+  token.correo = req.body.correo;
+  token.token  = jwt.sign({req.body.correo},'token_kids');
+  token.save(function(err){
       if(err) {
           res.send(err);
       }
       res.status(201);
       res.json(client);
   });
+};
+//Search all clients in database
+exports.getClients = (req, res) => {
+  Client.find()
+    .then(clients => {
+        res.send(clients);
+    }).catch(err => {
+        res.status(500).send({
+            message: err.message || "Some error occurred while retrieving clients."
+        });
+    });
 };
 //Search user with email and password
 exports.getClient = (req, res) => {
@@ -56,3 +64,4 @@ exports.update = (req, res) => {
         }
   });
 };
+*/

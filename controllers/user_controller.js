@@ -18,17 +18,6 @@ exports.create = (req, res) => {
       res.json(user);
   });
 };
-//Search all user in database
-exports.getUsers = (req, res) => {
-  User.find()
-    .then(users => {
-        res.send(users);
-    }).catch(err => {
-        res.status(500).send({
-            message: err.message || "Some error occurred while retrieving users."
-        });
-    });
-};
 //Search user with email and password
 exports.getUser = (req, res) => {
   User.find({email:req.params.email,password: req.params.password})

@@ -16,18 +16,7 @@ exports.create = (req, res) => {
       res.json(video);
   });
 };
-//Search all videos in database
-exports.getVideos = (req, res) => {
-  Video.find()
-    .then(videos => {
-        res.send(videos);
-    }).catch(err => {
-        res.status(500).send({
-            message: err.message || "Some error occurred while retrieving videos."
-        });
-    });
-};
-//Search video with id
+
 exports.getVideo = (req, res) => {
   Video.findById(req.params.id)
       .then(video => {
