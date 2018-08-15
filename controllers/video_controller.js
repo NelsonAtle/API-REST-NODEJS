@@ -8,7 +8,6 @@ exports.create = (req, res) => {
   video.name = req.body.name;
   video.type = req.body.type;
   video.url = req.body.url;
-  video.category = req.body.category;
   video.save(function(err){
       if(err) {
           res.send(err);
@@ -38,6 +37,26 @@ exports.getVideo = (req, res) => {
           });
       });
   };
+exports.getVideoUser = (req, res) => {
+    Video.find({user:req.params.id})
+        .then(video => {
+            if(!video) {
+                return res.status(404).send({
+                    message: "Video not found"
+                });
+            }
+            res.send(video);
+        }).catch(err => {
+            if(err.kind === 'ObjectId') {
+                return res.status(404).send({
+                    message: "Video not found"
+                });
+            }
+            return res.status(500).send({
+                message: "Error internal server"
+            });
+        });
+    };
 //Update a video identified by id
 exports.update = (req, res) => {
   const id = req.params.id;
