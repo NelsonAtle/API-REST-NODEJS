@@ -16,7 +16,7 @@ exports.create = (req, res) => {
       res.json(client);
   });
 };
-//Search user with email and password
+//Search a user with email and password
 exports.getClient = (req, res) => {
   var data = {
     id: req.client[0]._id,
@@ -44,4 +44,13 @@ exports.update = (req, res) => {
             });
         }
   });
+};
+//Delete a user by id
+exports.delete = (req, res) => {
+  Client.remove({
+            _id: req.params.id
+        }, function (err, client) {
+            if(err) return res.status(500).send({message: 'Error internal server'});
+            res.sendStatus(200);
+        });
 };

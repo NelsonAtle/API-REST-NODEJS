@@ -56,3 +56,12 @@ exports.update = (req, res) => {
         }
   });
 };
+//Delete a video identified by id
+exports.delete = (req, res) => {
+  Video.remove({
+            _id: req.params.id
+        }, function (err, video) {
+            if(err) return res.status(500).send({message: 'Error internal server'});
+            res.sendStatus(200);
+        });
+};
