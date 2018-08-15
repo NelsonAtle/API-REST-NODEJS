@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const schema =  mongoose.Schema;
 
 const client = new schema({
-  idRoot: {type: String},
 	name: {type: String},
 	user:{type: String},
 	pin: {type: String},

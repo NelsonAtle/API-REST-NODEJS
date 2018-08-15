@@ -19,8 +19,8 @@ router.patch('/videos/:id',Token.confirmToken, Video.update);
 
 //CLIENTS
 router.post('/client', Client.create);
-router.get('/client/:id', Client.getClient);
-router.patch('/client/:id', Client.update);
+router.get('/client/:user/:pin',Token.loginTokenClient, Client.getClient);
+router.patch('/client/:id',Token.confirmToken, Client.update);
 
 
 module.exports = router;

@@ -1,6 +1,7 @@
 const Token  = require('../models/token_model.js');
 var jwt = require('jsonwebtoken');
 const User  = require('../models/user_model.js');
+const Client  = require('../models/client_model.js');
 
 exports.confirmToken=(req,res,next)=> {
   const headers = req.headers['authorization'];
@@ -41,7 +42,6 @@ exports.loginToken=(req,res,next)=>{
   var correo = req.params.email;
   var pass = req.params.password;
   if (typeof headers === 'undefined') {
-
     User.find({email:req.params.email,password: req.params.password})
         .then(user => {
             if(!user) {
@@ -75,7 +75,49 @@ exports.loginToken=(req,res,next)=>{
                 });
             }
             return res.status(500).send({
-                message: "User not found"
+                message: "Error internal server"
+            });
+        });
+    }
+}
+exports.loginTokenClient=(req,res,next)=>{
+  const headers = req.headers['authorization'];
+  var user = req.params.user;
+  if (typeof headers === 'undefined') {
+    Client.find({user:req.params.user,pin: req.params.pin})
+        .then(client => {
+            if(!client) {
+                return res.status(404).send({
+                    message: "Client not found"
+                });
+            }
+            var token = new Token();
+            token.user = client[0]._id;
+            token.token = jwt.sign({user},'token_kids');
+            if (client.length != 0) {
+              token.save(function(err){
+                  if(err) {
+                      res.send(err);
+                  }
+                  res.status(201);
+                  req.token = token.token;
+                  req.client = client;
+                  next();
+              });
+            }else {
+              return res.status(404).send({
+                  message: "Client not found"
+              });
+            }
+
+            }).catch(err => {
+            if(err.kind === 'ObjectId') {
+                return res.status(404).send({
+                    message: "Client not found"
+                });
+            }
+            return res.status(500).send({
+                message: "Error internal server"
             });
         });
     }
