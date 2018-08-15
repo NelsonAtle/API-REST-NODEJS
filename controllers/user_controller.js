@@ -18,34 +18,26 @@ exports.create = (req, res) => {
       res.json(user);
   });
 };
-//Search user with email and password
+//Send data user with token
 exports.getUser = (req, res) => {
-  User.find({email:req.params.email,password: req.params.password})
-      .then(user => {
-          if(!user) {
-              return res.status(404).send({
-                  message: "User not found"
-              });
-          }
-          res.send(user);
-      }).catch(err => {
-          if(err.kind === 'ObjectId') {
-              return res.status(404).send({
-                  message: "User not found"
-              });
-          }
-          return res.status(500).send({
-              message: "User not found"
-          });
-      });
-  };
+    var data = {
+      id: req.user[0]._id,
+      name: req.user[0].name,
+      lastName: req.user[0].lastName,
+      birthday: req.user[0].birthday,
+      country: req.user[0].country,
+      email: req.user[0].email,
+      token: req.token
+    }
+    res.json(data);
+};
 //Update a user identified by id
 exports.update = (req, res) => {
   const id = req.params.id;
   var update = req.body;
 
   User.findByIdAndUpdate(id, update, {new:true}, (err, user) => {
-    if(err) return res.status(500).send({message: 'Error en el servidor'});
+    if(err) return res.status(500).send({message: 'Error internal server'});
         if(user){
             return res.status(200).send({
               user

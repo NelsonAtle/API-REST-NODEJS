@@ -1,67 +1,82 @@
 const Token  = require('../models/token_model.js');
-/*var jwt = require('jsonwebtoken');
+var jwt = require('jsonwebtoken');
+const User  = require('../models/user_model.js');
 
-//Create new client and insert in the database
-exports.create = (req, res) => {
-  var token = new Token();
-  token.correo = req.body.correo;
-  token.token  = jwt.sign({req.body.correo},'token_kids');
-  token.save(function(err){
-      if(err) {
-          res.send(err);
-      }
-      res.status(201);
-      res.json(client);
-  });
-};
-//Search all clients in database
-exports.getClients = (req, res) => {
-  Client.find()
-    .then(clients => {
-        res.send(clients);
-    }).catch(err => {
-        res.status(500).send({
-            message: err.message || "Some error occurred while retrieving clients."
-        });
-    });
-};
-//Search user with email and password
-exports.getClient = (req, res) => {
-  Client.findById(req.params.id)
-      .then(client => {
-          if(!client) {
-              return res.status(404).send({
-                  message: "Client not found"
+exports.confirmToken=(req,res,next)=> {
+  const headers = req.headers['authorization'];
+
+  if (typeof headers !== 'undefined') {
+      const header = headers.split(" ");
+      Token.find({token: header[1]})
+          .then(token => {
+              if(!token) {
+                  return res.status(404).send({
+                      message: "Token not found"
+                  });
+              }
+              if (token.length != 0) {
+                next();
+              }else {
+                return res.status(404).send({
+                    message: "Token not found"
+                });
+              }
+
+              }).catch(err => {
+              if(err.kind === 'ObjectId') {
+                  return res.status(404).send({
+                      message: "Token not found"
+                  });
+              }
+              return res.status(500).send({
+                  message: "Error internal server"
               });
-          }
-          res.send(client);
-      }).catch(err => {
-          if(err.kind === 'ObjectId') {
-              return res.status(404).send({
-                  message: "Client not found"
-              });
-          }
-          return res.status(500).send({
-              message: "Client not found"
           });
-      });
-  };
-//Update a user identified by id
-exports.update = (req, res) => {
-  const id = req.params.id;
-  var update = req.body;
+  }else{
+    res.sendStatus(403);
+  }
+}
+exports.loginToken=(req,res,next)=>{
+  const headers = req.headers['authorization'];
+  var correo = req.params.email;
+  var pass = req.params.password;
+  if (typeof headers === 'undefined') {
 
-  Client.findByIdAndUpdate(id, update, {new:true}, (err, client) => {
-    if(err) return res.status(500).send({message: 'Error Server'});
-        if(client){
-            return res.status(200).send({
-              client
+    User.find({email:req.params.email,password: req.params.password})
+        .then(user => {
+            if(!user) {
+                return res.status(404).send({
+                    message: "User not found"
+                });
+            }
+            var token = new Token();
+            token.user = user[0]._id;
+            token.token = jwt.sign({correo},'token_kids');
+            if (user.length != 0) {
+              token.save(function(err){
+                  if(err) {
+                      res.send(err);
+                  }
+                  res.status(201);
+                  req.token = token.token;
+                  req.user = user;
+                  next();
+              });
+            }else {
+              return res.status(404).send({
+                  message: "User not found"
+              });
+            }
+
+            }).catch(err => {
+            if(err.kind === 'ObjectId') {
+                return res.status(404).send({
+                    message: "User not found"
+                });
+            }
+            return res.status(500).send({
+                message: "User not found"
             });
-        }else{
-            return res.status(404).send({
-                message: 'Not found client'
-            });
-        }
-  });
-};
-*/
+        });
+    }
+}
