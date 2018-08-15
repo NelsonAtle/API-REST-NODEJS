@@ -13,9 +13,9 @@ router.get('/user/:email/:password',Token.loginToken, User.getUser);
 router.patch('/user/:id',Token.confirmToken, User.update);
 
 //VIDEOS
-router.post('/videos', Video.create);
-router.get('/videos/:id', Video.getVideo);
-router.patch('/videos/:id', Video.update);
+router.post('/videos',Token.confirmToken, Video.create);
+router.get('/videos/:id',Token.confirmToken, Video.getVideo);
+router.patch('/videos/:id',Token.confirmToken, Video.update);
 
 //CLIENTS
 router.post('/client', Client.create);

@@ -4,6 +4,7 @@ const Video  = require('../models/video_model.js');
 //Create new video and insert in the database
 exports.create = (req, res) => {
   var video = new Video();
+  video.user = req.body.user;
   video.name = req.body.name;
   video.type = req.body.type;
   video.url = req.body.url;
@@ -33,7 +34,7 @@ exports.getVideo = (req, res) => {
               });
           }
           return res.status(500).send({
-              message: "Video not found"
+              message: "Error internal server"
           });
       });
   };
@@ -43,7 +44,7 @@ exports.update = (req, res) => {
   var update = req.body;
 
   Video.findByIdAndUpdate(id, update, {new:true}, (err, video) => {
-    if(err) return res.status(500).send({message: 'Error Server'});
+    if(err) return res.status(500).send({message: 'Error internal server'});
         if(video){
             return res.status(200).send({
               video
