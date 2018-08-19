@@ -48,12 +48,7 @@ exports.loginToken=(req,res,next)=>{
                 });
             }
             var data_user = {
-              id:user[0]._id,
-              name: user[0].name,
-              lastName: user[0].lastName,
-              birthday:user[0].birthday,
-              country: user[0].country,
-              email:user[0].email,
+              _id:user[0]._id,
               type: user[0].type
             }
             var token = new Token();
@@ -98,10 +93,7 @@ exports.loginTokenClient=(req,res,next)=>{
                 });
             }
             var data_client = {
-              id:client[0]._id,
-              name:client[0].name,
-              username:client[0].username,
-              years:client[0].years,
+              _id:client[0]._id,
               type: client[0].type
             }
             var token = new Token();
