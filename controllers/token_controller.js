@@ -48,8 +48,7 @@ exports.loginToken=(req,res,next)=>{
                 });
             }
             var data_user = {
-              _id:user[0]._id,
-              type: user[0].type
+              _id:user[0]._id
             }
             var token = new Token();
             token.user = user[0]._id;
@@ -93,8 +92,7 @@ exports.loginTokenClient=(req,res,next)=>{
                 });
             }
             var data_client = {
-              _id:client[0]._id,
-              type: client[0].type
+              _id:client[0]._id
             }
             var token = new Token();
             token.user = client[0]._id;

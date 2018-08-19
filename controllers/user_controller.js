@@ -40,11 +40,13 @@ exports.getUser = (req, res) => {
               });
           }
           var data ={
+            _id:user._id,
             name:user.name,
             lastName:user.lastName,
             birthday:user.birthday,
             country:user.country,
-            email:user.email
+            email:user.email,
+            type:user.type
           };
 
           res.send(data);
