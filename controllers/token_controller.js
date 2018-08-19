@@ -5,7 +5,6 @@ const Client  = require('../models/client_model.js');
 
 exports.confirmToken=(req,res,next)=> {
   const headers = req.headers['authorization'];
-
   if (typeof headers !== 'undefined') {
       const header = headers.split(" ");
       Token.find({token: header[1]})
@@ -16,6 +15,7 @@ exports.confirmToken=(req,res,next)=> {
                   });
               }
               if (token.length != 0) {
+                req.token = header[1]; 
                 next();
               }else {
                 return res.status(404).send({
@@ -39,8 +39,6 @@ exports.confirmToken=(req,res,next)=> {
 }
 exports.loginToken=(req,res,next)=>{
   const headers = req.headers['authorization'];
-  var correo = req.params.email;
-  var pass = req.params.password;
   if (typeof headers === 'undefined') {
     User.find({email:req.params.email,password: req.params.password})
         .then(user => {
@@ -49,9 +47,18 @@ exports.loginToken=(req,res,next)=>{
                     message: "User not found"
                 });
             }
+            var data_user = {
+              id:user[0]._id,
+              name: user[0].name,
+              lastName: user[0].lastName,
+              birthday:user[0].birthday,
+              country: user[0].country,
+              email:user[0].email,
+              type: user[0].type
+            }
             var token = new Token();
             token.user = user[0]._id;
-            token.token = jwt.sign({correo},'token_kids');
+            token.token = jwt.sign({data_user},'token_kids');
             if (user.length != 0) {
               token.save(function(err){
                   if(err) {
@@ -59,7 +66,6 @@ exports.loginToken=(req,res,next)=>{
                   }
                   res.status(201);
                   req.token = token.token;
-                  req.user = user;
                   next();
               });
             }else {
@@ -84,16 +90,23 @@ exports.loginTokenClient=(req,res,next)=>{
   const headers = req.headers['authorization'];
   var user = req.params.user;
   if (typeof headers === 'undefined') {
-    Client.find({user:req.params.user,pin: req.params.pin})
+    Client.find({username:req.params.username,pin: req.params.pin})
         .then(client => {
             if(!client) {
                 return res.status(404).send({
                     message: "Client not found"
                 });
             }
+            var data_client = {
+              id:client[0]._id,
+              name:client[0].name,
+              username:client[0].username,
+              years:client[0].years,
+              type: client[0].type
+            }
             var token = new Token();
             token.user = client[0]._id;
-            token.token = jwt.sign({user},'token_kids');
+            token.token = jwt.sign({data_client},'token_kids');
             if (client.length != 0) {
               token.save(function(err){
                   if(err) {
@@ -101,7 +114,6 @@ exports.loginTokenClient=(req,res,next)=>{
                   }
                   res.status(201);
                   req.token = token.token;
-                  req.client = client;
                   next();
               });
             }else {

@@ -10,6 +10,7 @@ exports.create = (req, res) => {
   user.country = req.body.country;
   user.email   = req.body.email;
   user.password = req.body.password;
+  user.type = "admin";
   user.save(function(err){
       if(err) {
           res.send(err);
@@ -18,18 +19,19 @@ exports.create = (req, res) => {
       res.json(user);
   });
 };
+exports.getToken = (req, res) => {
+  var data={
+      access_token:req.token
+  };
+  res.json(data);
+}
 //Send data user with token
 exports.getUser = (req, res) => {
-    var data = {
-      id: req.user[0]._id,
-      name: req.user[0].name,
-      lastName: req.user[0].lastName,
-      birthday: req.user[0].birthday,
-      country: req.user[0].country,
-      email: req.user[0].email,
-      token: req.token
-    }
-    res.json(data);
+   var base64Url = req.token.split('.')[1];
+   let buff = new Buffer(base64Url, 'base64');  
+   let text = buff.toString('ascii');
+   text = JSON.parse(text);
+   res.json(text["data_user"]);
 };
 //Update a user identified by id
 exports.update = (req, res) => {

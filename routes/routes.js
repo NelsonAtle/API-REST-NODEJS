@@ -10,7 +10,8 @@ const UserModel  = require('../models/user_model.js');
 
 //USERS
 router.post('/user', User.create);
-router.get('/user/:email/:password',Token.loginToken, User.getUser);
+router.get('/user/:email/:password',Token.loginToken, User.getToken);
+router.get('/user/token',Token.confirmToken, User.getUser);
 router.patch('/user/:id',Token.confirmToken, User.update);
 
 //VIDEOS
@@ -22,7 +23,8 @@ router.delete('/videos/:id',Token.confirmToken, Video.delete);
 
 //CLIENTS
 router.post('/client', Client.create);
-router.get('/client/:user/:pin',Token.loginTokenClient, Client.getClient);
+router.get('/client/:username/:pin',Token.loginTokenClient, Client.getToken);
+router.get('/client/token',Token.confirmToken, Client.getClient);
 router.patch('/client/:id',Token.confirmToken, Client.update);
 router.delete('/client/:id',Token.confirmToken, Client.delete);
 

@@ -5,9 +5,10 @@ const Client  = require('../models/client_model.js');
 exports.create = (req, res) => {
   var client = new Client();
   client.name = req.body.name;
-  client.user = req.body.user;
+  client.username = req.body.username;
   client.pin = req.body.pin;
   client.years   = req.body.years;
+  client.type = "guest";
   client.save(function(err){
       if(err) {
           res.send(err);
@@ -16,16 +17,19 @@ exports.create = (req, res) => {
       res.json(client);
   });
 };
+exports.getToken = (req, res) => {
+  var data={
+      access_token:req.token
+  };
+  res.json(data);
+}
 //Search a user with email and password
 exports.getClient = (req, res) => {
-  var data = {
-    id: req.client[0]._id,
-    name: req.client[0].name,
-    user: req.client[0].user,
-    years: req.client[0].years,
-    token: req.token
-  }
-  res.json(data);
+    var base64Url = req.token.split('.')[1];
+    let buff = new Buffer(base64Url, 'base64');  
+    let text = buff.toString('ascii');
+    text = JSON.parse(text);
+    res.json(text["data_client"]);
 };
 //Update a user identified by id
 exports.update = (req, res) => {
