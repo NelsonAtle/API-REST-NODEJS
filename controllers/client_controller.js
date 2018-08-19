@@ -90,3 +90,38 @@ exports.delete = (req, res) => {
     }
   });
 }
+
+exports.getClients=(req, res) => {
+
+  var base64Url = req.token.split('.')[1];
+  let buff = new Buffer(base64Url, 'base64');  
+  let text = buff.toString('ascii');
+  text = JSON.parse(text);
+  
+  Client.find({user:text["data_user"]._id})
+      .then(clients => {
+          if(!clients) {
+              return res.status(404).send({
+                  message: "Clients not found"
+              });
+          }
+          var data ={
+            _id:clients[0]._id,
+            name:clients[0].name,
+            username:clients[0].username,
+            years:clients[0].years,
+            type:clients[0].type
+          };
+
+          res.send(data);
+      }).catch(err => {
+          if(err.kind === 'ObjectId') {
+              return res.status(404).send({
+                  message: "Clients not found"
+              });
+          }
+          return res.status(500).send({
+              message: "Error internal server"
+          });
+  });
+};
