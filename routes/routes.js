@@ -27,7 +27,7 @@ router.get('/client/:username/:pin',Token.loginTokenClient, Client.getToken);
 router.get('/client/token',Token.confirmToken, Client.getClient);
 router.patch('/client/:id',Token.confirmToken, Client.update);
 router.delete('/client/:id',Token.confirmToken, Client.delete);
-router.get('/client/clients',Token.confirmToken, Client.getClients);
+router.get('/client/:user',Token.confirmToken, Client.getClients);
 
 //CLIENTS - CATEGORY
 router.post('/client_video',Token.confirmToken, Client_Video.create);

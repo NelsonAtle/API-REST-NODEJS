@@ -92,13 +92,8 @@ exports.delete = (req, res) => {
 }
 
 exports.getClients=(req, res) => {
-
-  var base64Url = req.token.split('.')[1];
-  let buff = new Buffer(base64Url, 'base64');  
-  let text = buff.toString('ascii');
-  text = JSON.parse(text);
-  
-  Client.find({user:text["data_user"]._id})
+  const id = req.params.user;
+  Client.find({user:id)
       .then(clients => {
           if(!clients) {
               return res.status(404).send({
