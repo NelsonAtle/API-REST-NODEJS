@@ -38,7 +38,7 @@ exports.getVideo = (req, res) => {
       });
   };
 exports.getVideoUser = (req, res) => {
-    Video.find({user:req.params.id})
+    Video.find({user:req.params.user})
         .then(video => {
             if(!video) {
                 return res.status(404).send({

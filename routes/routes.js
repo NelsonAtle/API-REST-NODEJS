@@ -16,7 +16,7 @@ router.patch('/user/:id',Token.confirmToken, User.update);
 
 //VIDEOS
 router.post('/videos',Token.confirmToken, Video.create);
-router.get('/videos/user/:id',Token.confirmToken, Video.getVideoUser);
+router.get('/videos/user/:user',Token.confirmToken, Video.getVideoUser);
 router.get('/videos/:id',Token.confirmToken, Video.getVideo);
 router.patch('/videos/:id',Token.confirmToken, Video.update);
 router.delete('/videos/:id',Token.confirmToken, Video.delete);
