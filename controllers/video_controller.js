@@ -77,17 +77,18 @@ exports.update = (req, res) => {
 };
 //Delete a video identified by id
 exports.delete = (req, res) => {
-  
-  Video.remove({
-            _id: req.params.id
-        }, function (err, video) {
-            if(err){ 
-              return res.status(500).send({message: 'Error internal server'});
-            }
-            var video ={
-                n:1,
-                ok:1
-            }
-            res.status(200).send(video);
-        });
-};
+  const id = req.params.id;
+  Video.findByIdAndRemove(id,(err, video) => {       
+    if(err){ 
+      return res.status(500).send({message: 'Error internal server'});
+    }
+    if(video){
+      return res.status(200).send({video});
+    }else{
+      return res.status(404).send({
+        message:'Not found video'
+      });
+    }
+  });
+}
+

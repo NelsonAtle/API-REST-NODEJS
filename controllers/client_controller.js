@@ -76,16 +76,17 @@ exports.update = (req, res) => {
 };
 //Delete a user by id
 exports.delete = (req, res) => {
-  Client.remove({
-            _id: req.params.id
-        }, function (err, client) {
-            if(err){
-              return res.status(500).send({message: 'Error internal server'});
-            }
-            var client ={
-                n:1,
-                ok:1
-            }
-            res.status(200).send(client_video);
-        });
-};
+  const id = req.params.id;
+  Client.findByIdAndRemove(id,(err, client) => {       
+    if(err){ 
+      return res.status(500).send({message: 'Error internal server'});
+    }
+    if(client){
+      return res.status(200).send({client});
+    }else{
+      return res.status(404).send({
+        message:'Not found client'
+      });
+    }
+  });
+}
