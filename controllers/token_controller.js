@@ -38,9 +38,7 @@ exports.confirmToken=(req,res,next)=> {
   }
 }
 exports.loginToken=(req,res,next)=>{
-  const headers = req.headers['authorization'];
-  if (typeof headers === 'undefined') {
-    User.find({email:req.params.email,password: req.params.password})
+  User.find({email:req.params.email,password: req.params.password})
         .then(user => {
             if(!user) {
                 return res.status(404).send({
@@ -78,13 +76,11 @@ exports.loginToken=(req,res,next)=>{
                 message: "Error internal server"
             });
         });
-    }
+    
 }
 exports.loginTokenClient=(req,res,next)=>{
-  const headers = req.headers['authorization'];
   var user = req.params.user;
-  if (typeof headers === 'undefined') {
-    Client.find({username:req.params.username,pin: req.params.pin})
+  Client.find({username:req.params.username,pin: req.params.pin})
         .then(client => {
             if(!client) {
                 return res.status(404).send({
@@ -122,5 +118,5 @@ exports.loginTokenClient=(req,res,next)=>{
                 message: "Error internal server"
             });
         });
-    }
+    
 }
