@@ -79,7 +79,13 @@ exports.delete = (req, res) => {
   Client.remove({
             _id: req.params.id
         }, function (err, client) {
-            if(err) return res.status(500).send({message: 'Error internal server'});
-            res.sendStatus(200);
+            if(err){
+              return res.status(500).send({message: 'Error internal server'});
+            }
+            var client ={
+                n:1,
+                ok:1
+            }
+            res.status(200).send(client_video);
         });
 };
