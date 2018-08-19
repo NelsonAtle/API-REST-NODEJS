@@ -76,7 +76,6 @@ exports.loginToken=(req,res,next)=>{
                 message: "Error internal server"
             });
         });
-    
 }
 exports.loginTokenClient=(req,res,next)=>{
   var user = req.params.user;
@@ -118,5 +117,4 @@ exports.loginTokenClient=(req,res,next)=>{
                 message: "Error internal server"
             });
         });
-    
 }
