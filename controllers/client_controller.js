@@ -29,7 +29,30 @@ exports.getClient = (req, res) => {
     let buff = new Buffer(base64Url, 'base64');  
     let text = buff.toString('ascii');
     text = JSON.parse(text);
-    res.json(text["data_client"]);
+    Client.findById(text["data_client"]._id)
+      .then(client => {
+          if(!client) {
+              return res.status(404).send({
+                  message: "Client not found"
+              });
+          }
+          var data ={
+            name:client.name,
+            username:client.username,
+            years:client.years
+          };
+
+          res.send(data);
+      }).catch(err => {
+          if(err.kind === 'ObjectId') {
+              return res.status(404).send({
+                  message: "Client not found"
+              });
+          }
+          return res.status(500).send({
+              message: "Error internal server"
+          });
+  });
 };
 //Update a user identified by id
 exports.update = (req, res) => {

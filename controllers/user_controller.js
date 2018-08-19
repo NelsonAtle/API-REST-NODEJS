@@ -27,11 +27,37 @@ exports.getToken = (req, res) => {
 }
 //Send data user with token
 exports.getUser = (req, res) => {
-   var base64Url = req.token.split('.')[1];
-   let buff = new Buffer(base64Url, 'base64');  
-   let text = buff.toString('ascii');
-   text = JSON.parse(text);
-   res.json(text["data_user"]);
+  var base64Url = req.token.split('.')[1];
+  let buff = new Buffer(base64Url, 'base64');  
+  let text = buff.toString('ascii');
+  text = JSON.parse(text);
+  
+  User.findById(text["data_user"]._id)
+      .then(user => {
+          if(!user) {
+              return res.status(404).send({
+                  message: "User not found"
+              });
+          }
+          var data ={
+            name:user.name,
+            lastName:user.lastName,
+            birthday:user.birthday,
+            country:user.country,
+            email:user.email
+          };
+
+          res.send(data);
+      }).catch(err => {
+          if(err.kind === 'ObjectId') {
+              return res.status(404).send({
+                  message: "User not found"
+              });
+          }
+          return res.status(500).send({
+              message: "Error internal server"
+          });
+  });
 };
 //Update a user identified by id
 exports.update = (req, res) => {
