@@ -1,5 +1,6 @@
 const User  = require('../models/user_model.js');
 const Client  = require('../models/client_model.js');
+const Token = require('../models/token_model.js');
 
 
 //Create new user and insert in the database
@@ -82,3 +83,18 @@ exports.update = (req, res) => {
 };
 
 
+exports.delete = (req, res) => {
+  const id = req.params.id;
+  Token.remove({user:id},(err, token) => {       
+    if(err){ 
+      return res.status(500).send({message: 'Error internal server'});
+    }
+    if(token){
+      return res.status(200).send({token});
+    }else{
+      return res.status(404).send({
+        message:'Not found video'
+      });
+    }
+  });
+}

@@ -63,14 +63,38 @@ exports.getClientVideo = (req, res) => {
 };
 //Delete a relation video and client by id
 exports.delete = (req, res) => {
-  Client_Video.remove({client: req.params.id_client,video:req.params.id_video}, function (err, client_video) {
-      if(err){ 
-        return res.status(500).send({message: 'Error internal server'});
-      }
-      var client_video ={
-        n:1,
-        ok:1
-      }
-      res.status(200).send(client_video);
+  Client_Video.find({client:req.params.id_client,video: req.params.id_video})
+      .then(client => {
+          if(!client) {
+              return res.status(404).send({
+                  message: "Data not found"
+              });
+          }
+          Client_Video.findByIdAndRemove(client[0]._id,(err, client) => {       
+            if(err){ 
+              return res.status(500).send({message: 'Error internal server'});
+            }
+            if(client){
+              return res.status(200).send({client});
+            }else{
+              return res.status(404).send({
+                message:'Data not found'
+              });
+            }
+          });
+
+      }).catch(err => {
+          if(err.kind === 'ObjectId') {
+              return res.status(404).send({
+                  message: "Data not found"
+              });
+          }
+          return res.status(500).send({
+              message: "Error internal server"
+          });
   });
+ /* Client_Video.remove({client: req.params.id_client,video:req.params.id_video}, function (err, client_video) {
+      if(err) return res.status(500).send({message: 'Error internal server'});
+      res.status(200).send(client_video);
+  });*/
 };

@@ -13,6 +13,7 @@ router.post('/user', User.create);
 router.get('/user/:email/:password',Token.loginToken, User.getToken);
 router.get('/user/token',Token.confirmToken, User.getUser);
 router.patch('/user/:id',Token.confirmToken, User.update);
+router.delete('/user/:id',Token.confirmToken, User.delete);
 
 //VIDEOS
 router.post('/videos',Token.confirmToken, Video.create);
