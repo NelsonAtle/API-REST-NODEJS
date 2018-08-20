@@ -5,6 +5,7 @@ const Client  = require('../models/client_model.js');
 exports.create = (req, res) => {
   var client = new Client();
   client.name = req.body.name;
+  client.user = req.body.user;
   client.username = req.body.username;
   client.pin = req.body.pin;
   client.years   = req.body.years;
@@ -93,22 +94,14 @@ exports.delete = (req, res) => {
 
 exports.getClients=(req, res) => {
   const id = req.params.user;
-  Client.find({user:id)
+  Client.find({user:id})
       .then(clients => {
           if(!clients) {
               return res.status(404).send({
                   message: "Clients not found"
               });
           }
-          var data ={
-            _id:clients[0]._id,
-            name:clients[0].name,
-            username:clients[0].username,
-            years:clients[0].years,
-            type:clients[0].type
-          };
-
-          res.send(data);
+          res.send(clients);
       }).catch(err => {
           if(err.kind === 'ObjectId') {
               return res.status(404).send({

@@ -1,5 +1,5 @@
 const Client_Video  = require('../models/client_video_model.js');
-
+const Video  = require('../models/video_model.js');
 
 //Create new client with video and insert in the database
 exports.create = (req, res) => {
@@ -23,8 +23,33 @@ exports.getClientVideo = (req, res) => {
                   message: "Videos of client not found"
               });
           }
-          res.send(client_video);
-
+          var size = Object.keys(client_video).length;
+          var listaVideos=[];
+          for (var i = 0; i < size; i++) {
+              var id_video= client_video[i].video;
+                Video.findById(id_video).then(video => {
+                  if(!video) {
+                    return res.status(404).send({
+                        message: "Video not found"
+                    });
+                  }
+                  listaVideos.push(video);
+                  if (listaVideos.length==size) {
+                      res.send(listaVideos);
+                  }
+                  }).catch(err => {
+                    if(err.kind === 'ObjectId') {
+                      return res.status(404).send({
+                         message: "Video not found"
+                      });
+                    }
+                    return res.status(500).send({
+                        message: "Error internal server"
+                    });
+                });
+            
+          }
+          res.status(200);
           }).catch(err => {
           if(err.kind === 'ObjectId') {
               return res.status(404).send({
