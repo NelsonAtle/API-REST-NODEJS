@@ -80,7 +80,11 @@ exports.getClients = (req, res) => {
                         message: "Client not found"
                     });
                   }
-                  listaClientes.push(client);
+                  var data = {
+                    _id : client._id,
+                    name: client.name
+                  };
+                  listaClientes.push(data);
                   if (listaClientes.length==size) {
                       res.send(listaClientes);
                   }
