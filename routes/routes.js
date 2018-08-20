@@ -35,7 +35,7 @@ router.get('/client/:user',Token.confirmToken, Client.getClients);
 //CLIENTS - VIDEO
 router.post('/client_video',Token.confirmToken, Client_Video.create);
 router.get('/client_video/:id_client',Token.confirmToken, Client_Video.getClientVideo);
-router.delete('/client_video/:id_client/:id_video',Token.confirmToken, Client_Video.delete);
+router.delete('/client_video/:video',Token.confirmToken, Client_Video.delete);
 
 //EMAIL
 router.post('/email/send/:email',Email.sendEmail);
