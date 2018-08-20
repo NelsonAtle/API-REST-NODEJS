@@ -81,6 +81,7 @@ exports.delete = (req, res) => {
       return res.status(500).send({message: 'Error internal server'});
     }
     if(video){
+      
       return res.status(200).send({video});
     }else{
       return res.status(404).send({

@@ -5,7 +5,9 @@ const Video = require('../controllers/video_controller.js');
 const Client = require('../controllers/client_controller.js');
 const Client_Video = require('../controllers/client_video_controller.js');
 const Token  = require('../controllers/token_controller.js');
+const Email  = require('../controllers/email_controller.js');
 const UserModel  = require('../models/user_model.js');
+
 
 
 //USERS
@@ -30,10 +32,12 @@ router.patch('/client/:id',Token.confirmToken, Client.update);
 router.delete('/client/:id',Token.confirmToken, Client.delete);
 router.get('/client/:user',Token.confirmToken, Client.getClients);
 
-//CLIENTS - CATEGORY
+//CLIENTS - VIDEO
 router.post('/client_video',Token.confirmToken, Client_Video.create);
 router.get('/client_video/:id_client',Token.confirmToken, Client_Video.getClientVideo);
 router.delete('/client_video/:id_client/:id_video',Token.confirmToken, Client_Video.delete);
 
+//EMAIL
+router.post('/email/send/:email',Email.sendEmail);
 
 module.exports = router;
