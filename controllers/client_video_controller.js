@@ -115,11 +115,12 @@ exports.getClients = (req, res) => {
 //Delete a relation video and client by id
 exports.delete = (req, res) => {
  const id = req.params.video;
-  Client_Video.remove({id_video:id},(err, element) => {       
+  Client_Video.remove({video:id},(err, element) => {  
+
     if(err){ 
       return res.status(500).send({message: 'Error internal server'});
     }
-    if(element){
+    if(element.n>0){
       return res.status(200).send({element});
     }else{
       return res.status(404).send({
