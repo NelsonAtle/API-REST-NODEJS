@@ -40,5 +40,6 @@ router.delete('/client_video/:video',Token.confirmToken, Client_Video.delete);
 
 //EMAIL
 router.post('/email/send/:email',Email.sendEmail);
+router.patch('/email/verificar/:code',Email.verificar);
 
 module.exports = router;

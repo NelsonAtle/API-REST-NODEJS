@@ -46,7 +46,8 @@ exports.loginToken=(req,res,next)=>{
                 });
             }
             var data_user = {
-              _id:user[0]._id
+              _id:user[0]._id,
+              type:user[0].type
             }
             var token = new Token();
             token.user = user[0]._id;

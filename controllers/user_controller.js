@@ -13,6 +13,7 @@ exports.create = (req, res) => {
   user.email   = req.body.email;
   user.password = req.body.password;
   user.type = "admin";
+  user.state = false;
   user.save(function(err){
       if(err) {
           res.send(err);
@@ -47,8 +48,7 @@ exports.getUser = (req, res) => {
             lastName:user.lastName,
             birthday:user.birthday,
             country:user.country,
-            email:user.email,
-            type:user.type
+            email:user.email
           };
 
           res.send(data);

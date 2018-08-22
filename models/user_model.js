@@ -8,6 +8,7 @@ const user = new schema({
 	country: {type: String},
 	email:{type:String},
 	type:{type:String},
-	password: {type: String}
+	password: {type: String},
+	state:{type:Boolean}
 });
 module.exports = mongoose.model('users',user);
