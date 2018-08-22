@@ -17,7 +17,7 @@ exports.sendEmail=(req,res,next)=> {
 	  from: 'TubeKIDS',
 	  to: correo,
 	  subject: 'Activate account TubeKIDS',
-	  text: 'http://localhost:4200/email_verificación/'+data
+	  text: 'http://localhost:4200/email_verificacion/'+data
 	};
 
 	transporter.sendMail(mailOptions, function(error, info){

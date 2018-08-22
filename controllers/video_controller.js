@@ -111,3 +111,22 @@ exports.getVideosClient = (req,res)=>{
             });
   });
 }
+
+exports.searchVideos = (req,res)=>{
+  var conectores = ["y","la","lo","el","que","si","todo","aun","aún","así","con","además","también","por","es","en","un","más","hasta",
+                    "para","ahora","bien","cualquier","al","le","o","a","mismo","pero","sin","embargo","no","obstante","cierto","cierta",
+                    "otro","otra","ende","consiguiente","ahí","de","del","pues","sigue","esta","estar","entonces","como","igualmente",
+                    "similar","sea","esto",".",","]
+  var texto = req.params.text.replace(".", " ");
+  texto = texto.replace(",", " ");
+  texto = texto.split(" ");
+  texto = texto.filter(Boolean);
+  texto.removeItem('o');
+  res.send(texto);
+  /*
+  var str = req.params.text;
+  var res = str.replace(/blue|house|car/gi, function (x) {
+      return x.toUpperCase();
+  });
+  res.send();*/
+}

@@ -21,6 +21,7 @@ router.delete('/user/:id',Token.confirmToken, User.delete);
 router.post('/videos',Token.confirmToken, Video.create);
 router.get('/videos/user/:user',Token.confirmToken, Video.getVideoUser);
 router.get('/videos/:id',Token.confirmToken, Video.getVideo);
+router.get('/videos/search/:text',Token.confirmToken, Video.searchVideos);
 router.patch('/videos/:id',Token.confirmToken, Video.update);
 router.delete('/videos/:id',Token.confirmToken, Video.delete);
 
