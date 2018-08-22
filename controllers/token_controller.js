@@ -88,7 +88,8 @@ exports.loginTokenClient=(req,res,next)=>{
                 });
             }
             var data_client = {
-              _id:client[0]._id
+              _id:client[0]._id,
+              type:client[0].type
             }
             var token = new Token();
             token.user = client[0]._id;

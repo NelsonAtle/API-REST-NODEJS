@@ -41,8 +41,7 @@ exports.getClient = (req, res) => {
             _id:client._id,
             name:client.name,
             username:client.username,
-            years:client.years,
-            type:client.type
+            years:client.years
           };
 
           res.send(data);
