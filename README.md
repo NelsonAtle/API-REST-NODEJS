@@ -1,10 +1,8 @@
 
-<div style="overflow: hidden;">
-    <div style="float: left"><h1>Guía de Instalación Proyecto Sistema Agrícola</h1></div>
-    <img style="float: right; width:200px; margin-top:25px; margin-right:-40px;" src="https://portal.ticofrut.com/Content/Images/ticofrut_logo.svg">
+<div style="width:100%; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+    <img style="width:200px; margin-top:25px; margin-right:-40px;" src="https://portal.ticofrut.com/Content/Images/ticofrut_logo.svg">
+    <h1>Guía de Instalación Proyecto Sistema Agrícola</h1>
 </div>
-<hr style="background-color: green; margin-top: -24px">
-<hr style="background-color: #f09900; margin-top: -24px">
 
 Esta guía describe los pasos para instalar el sistema agricola. Asegúrate de cumplir con los requisitos previos antes de comenzar la instalación.
 
@@ -34,9 +32,27 @@ Esta guía describe los pasos para instalar el sistema agricola. Asegúrate de c
 - Accede a la carpeta llamada ***Instalador Embarcadero***.
 - Seguidamente accede a la carpeta llamada ***Install***.
 - Ejecuta el archivo llamado ***install_RADStudio.exe***.
-- El Embarcadero procedera a descargar los archivos necesarios
+- El Embarcadero procedera a descargar e instalar los siguientes archivos necesarios:
+    - Microsoft.Net Framework 3.5 Service Pack 1 (En caso de no estar instalado)
+    - Microsoft JSharp Runtime 2.0 (En caso de no estar instalado)
+    - AQtime 7 Standard (Se requiere datos de instalación)
+        - **User Name:**  *Usuario de Windows*
+        - **Company Name:** TicoFrut
+    - CollabNet Subversion Client 
+    - CodeSite Express
+    - Rave Reports
+- Utilizar los siguientes datos de registro del producto:
+    - **User Name:** *Usuario de Windows*
+    - **User Company:** TicoFrut
+    - **Serial Numer:** JAAL-SADADA-G4Q5BE-3ECN
 
-**NOTA**: Si el Sistema Operativo no cuenta con Microsoft.Net Framework 3.5 Service Pack 1 y Microsoft JSharp Runtime 2.0 el Embarcaero lo instalara por requisitode instalación.
+**NOTAS**: 
+
+- Si el Sistema Operativo no cuenta con Microsoft.Net Framework 3.5 Service Pack 1 y Microsoft JSharp Runtime 2.0 el Embarcaero lo instalara por requisitode instalación.
+
+- Si por alguna razon al momento de instalar genera un error al instalar ***Microsoft.Net Framework 3.5 Service     Pack 1*** porque es requerido configurarlo entonces se debe ingresar a la siguiente ruta: ```Panel de Control / Programas y Caracteristicas / Activar o Desactivar las Caracteristicas de Windows``` y verificar que elemento llamado ***.NET Framework 3.5*** se encuentre marcado.
+
+- **IMPORTANTE** Al final de la instalacion Embarcadero va solicitar checkear automaticamente las actualizaciones cuando se ejecute, se debe desmarcar el check.
 
 ### 2. Ejecución del Instalador
 - Navega al archivo descargado y haz doble clic para ejecutar el instalador.
