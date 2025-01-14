@@ -29,34 +29,36 @@ Esta guía describe los pasos para instalar el sistema agricola. Asegúrate de c
 ## Pasos de Instalación
 
 ### 1. Instalar Embarcadero RAD Studio 8.0
-- Accede a la carpeta llamada ***Instalador Embarcadero***.
-- Seguidamente accede a la carpeta llamada ***Install***.
-- Ejecuta el archivo llamado ***install_RADStudio.exe***.
-- El Embarcadero procedera a descargar e instalar los siguientes archivos necesarios:
+- **Paso 1**: Accede a la carpeta llamada ***Instalador Embarcadero***.
+- **Paso 2**: Seguidamente accede a la carpeta llamada ***Install***.
+- **Paso 3**: Ejecuta el archivo llamado ***Setup.exe***.
+- **Paso 4**: El Embarcadero procedera a descargar e instalar los siguientes archivos necesarios:
     - Microsoft.Net Framework 3.5 Service Pack 1 (En caso de no estar instalado)
     - Microsoft JSharp Runtime 2.0 (En caso de no estar instalado)
     - AQtime 7 Standard (Se requiere datos de instalación)
         - **User Name:**  *Usuario de Windows*
-        - **Company Name:** TicoFrut
+         - **Company Name:** TicoFrut
     - CollabNet Subversion Client 
     - CodeSite Express
     - Rave Reports
-- Utilizar los siguientes datos de registro del producto:
+- **Paso 5**: Utilizar los siguientes datos de registro del producto:
     - **User Name:** *Usuario de Windows*
     - **User Company:** TicoFrut
     - **Serial Numer:** JAAL-SADADA-G4Q5BE-3ECN
 
 **NOTAS**: 
 
-- Si el Sistema Operativo no cuenta con Microsoft.Net Framework 3.5 Service Pack 1 y Microsoft JSharp Runtime 2.0 el Embarcaero lo instalara por requisitode instalación.
+- Si el Sistema Operativo no cuenta con Microsoft.Net Framework 3.5 Service Pack 1 y Microsoft JSharp Runtime 2.0 el Embarcaero lo instalara por requisito de instalación.
 
-- Si por alguna razon al momento de instalar genera un error al instalar ***Microsoft.Net Framework 3.5 Service     Pack 1*** porque es requerido configurarlo entonces se debe ingresar a la siguiente ruta: ```Panel de Control / Programas y Caracteristicas / Activar o Desactivar las Caracteristicas de Windows``` y verificar que elemento llamado ***.NET Framework 3.5*** se encuentre marcado.
+- Si por alguna razon al momento de instalar genera un error al instalar ***Microsoft.Net Framework 3.5 Service Pack 1*** porque es requerido configurarlo entonces se debe ingresar a la siguiente ruta: ```Panel de Control / Programas y Caracteristicas / Activar o Desactivar las Caracteristicas de Windows``` y verificar que elemento llamado ***.NET Framework 3.5*** se encuentre marcado.
 
 - **IMPORTANTE** Al final de la instalacion Embarcadero va solicitar checkear automaticamente las actualizaciones cuando se ejecute, se debe desmarcar el check.
 
-### 2. Ejecución del Instalador
-- Navega al archivo descargado y haz doble clic para ejecutar el instalador.
-- Si aparece un aviso de Control de Cuentas de Usuario (UAC), haz clic en **Sí** para continuar.
+### 2. Crackear Licencia de Embarcadero
+- **Paso 1:** Copiar la carpeta que se encuenta en el repositorio llamada **Embarcadero** y copiarla en la ruta de instalacion es decir ```Archivos de programa (x86) [64Bits] o Archivos de programa [32Bits]```, automaticamente se va generar un conflicto de carpetas en la misma ruta por ende se debe remplazar.
+
+**NOTAS**: 
+- Si se borra la carpeta raiz de instalacion de instalacion y luego se copia la del repositorio va generar un error al iniciar el embarcadero por eso se debe reemplazar unicamente.
 
 ### 3. Selección de Idioma
 - Elige el idioma de instalación y haz clic en **Aceptar**.
